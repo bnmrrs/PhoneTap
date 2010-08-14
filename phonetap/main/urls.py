@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('PhoneTap.main.views',
+urlpatterns = patterns('phonetap.main.views',
     url(r'^$', 'homepage', name="PhoneTap-main-homepage")
 )
