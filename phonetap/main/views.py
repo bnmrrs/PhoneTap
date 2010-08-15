@@ -55,14 +55,17 @@ def make_call(request):
 			
 			call.put()
 			
-			response = json.dumps({'success':True})
+			response = json.dumps({
+				'success': True,
+				'call_page_url': request.build_absolute_uri(
+					reverse('phonetap-main-view_call', args=[call.call_sid])
+				)
+			})
 		else:
-			response_dict = {
+			response = json.dumps({
 				'success': False,
 				'errors': form.errors
-			}
-			
-			response = json.dumps(response_dict)
+			})
 		
 		return HttpResponse(response, 'application/javascript')
 	else:
