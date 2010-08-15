@@ -1,11 +1,13 @@
-import json
-import phonetap.twiliosimple
+from django.utils import simplejson as json
+from twiliosimple import Twilio
 
 from phonetap.main.forms import CallForm
 
 from django.http import HttpResponse
 from django.core import serializers
 from django.shortcuts import render_to_response
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
 def homepage(request):
 	form = CallForm()
@@ -19,6 +21,16 @@ def make_call(request):
 		form = CallForm(request.POST)
 		
 		if form.is_valid():
+			callback = request.build_absolute_uri(
+				reverse('phonetap-main-outgoing_inprogress')
+			)
+			
+			twilio = Twilio(settings.TWILIO_ACCOUNT_SID, \
+				settings.TWILIO_ACCOUNT_TOKEN)
+				
+			call = twilio.call(settings.TWILIO_SANDBOX_NUM, \
+				form.cleaned_data['caller_num'], callback)
+			
 			response = json.dumps({'success':True})
 		else:
 			response_dict = {
@@ -31,3 +43,15 @@ def make_call(request):
 		return HttpResponse(response, 'application/javascript')
 	else:
 		return HttpResponse(status=400)
+		
+def outgoing_callback(request):
+	callback = request.build_absolute_uri(
+		reverse('phonetap-main-outgoing_recording')
+	)
+	
+	return render_to_response('outgoing_callback.html', {
+		'callback': callback
+	})
+	
+def outgoing_recording_callback(request):
+	return render_to_response('outgoing_recording_callback.html', {})

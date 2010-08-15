@@ -60,8 +60,9 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    #'django.contrib.sessions.middleware.SessionMiddleware',
-    #'django.contrib.auth.middleware.AuthenticationMiddleware',
+#    'django.contrib.sessions.middleware.SessionMiddleware',
+#    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.doc.XViewMiddleware',
 )
 
 ROOT_URLCONF = 'phonetap.urls'
@@ -78,3 +79,9 @@ ROOT_PATH = os.path.dirname(__file__)
 TEMPLATE_DIRS = (
     ROOT_PATH + '/templates',
 )
+
+# Twillio settings
+TWILIO_ACCOUNT_SID = 'ACd9929ee3bf8bf4b761ef0ecd4927052c'
+TWILIO_ACCOUNT_TOKEN = 'ea14e0690420d279d63fb3497439ca98'
+TWILIO_SANDBOX_NUM = '5197229408'
+TWILIO_API_VERSION = '2008-08-01'
