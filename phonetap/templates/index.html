@@ -31,12 +31,12 @@
 		<form action="{% url phonetap-main-make_call %}" method="post" id="call-form">
 			<table>
 				<tr>
-					<td><label for="user-number">Your Number:</label></td>
-					<td>{{ form.caller_number }}</td>
+					<td><label for="user-num">Your Number:</label></td>
+					<td>{{ form.caller_num }}</td>
 				</tr>
 				<tr>	
-					<td><label for="called-number">Number to Call:</label></td>
-					<td>{{ form.callee_number }}</td>
+					<td><label for="called-num">Number to Call:</label></td>
+					<td>{{ form.callee_num }}</td>
 				</tr>
 				<tr>
 					<td><label for="user-email">Your Email:</label></td>
