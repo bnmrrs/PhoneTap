@@ -4,6 +4,32 @@
 
 {% block header_javascript %}
 	$(document).ready(function(){
+		$("#user-num-button").click(function () {
+			$("#user-num-wrapper").hide("slide", { direction: "left" }, 1000,
+			function() {
+				$("#called-num-wrapper").show("slide", { direction: "right" }, 1000);
+			});
+		});
+		
+		$("#called-num-button").click(function () {
+			$("#called-num-wrapper").hide("slide", { direction: "left" }, 1000);
+			$("#email-wrapper").show("slide", { direction: "right" }, 1000);
+		});
+		
+		$("#email-button").click(function () {
+
+		});
+		
+		$("#called-num-previous").click(function () {
+			$("#called-num-wrapper").hide("slide", { direction: "right" }, 1000);
+			$("#user-num-wrapper").show("slide", { direction: "left" }, 1000);
+		});
+		
+		$("#email-previous").click(function () {
+			$("#email-wrapper").hide("slide", { direction: "right" }, 1000);
+			$("#called-num-wrapper").show("slide", { direction: "left" }, 1000);
+		});
+		
 		$('#call-form').ajaxForm({ 
 			dataType: 'json',
 			success: processResponse
@@ -28,25 +54,24 @@
 		<p>PhoneTap enables you to record your own phone calls and then download them as a convenient .MP3 file.  No hardware required, just input your number and the number you'd like to call.  When you pick up we'll dial your requested number, record the call and we'll send you an email with a link to the download when you're done.</p>
 	</div>
 	<div class="content">
-		<form action="{% url phonetap-main-make_call %}" method="post" id="call-form">
-			<table>
-				<tr>
-					<td><label for="user-num">Your Number:</label></td>
-					<td>{{ form.caller_num }}</td>
-				</tr>
-				<tr>	
-					<td><label for="called-num">Number to Call:</label></td>
-					<td>{{ form.callee_num }}</td>
-				</tr>
-				<tr>
-					<td><label for="user-email">Your Email:</label></td>
-					<td>{{ form.caller_email }}</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input type="submit" value="Make Call" /></td>
-				</tr>
-			</table>
+	<form action="{% url phonetap-main-make_call %}" method="post" id="call-form">
+		<div id="user-num-wrapper">
+			<label for="user-num">Your Phone #:</label>
+			<input type="text" name="caller" style="width:335px;"  />
+			<button type="button" class="next-button" id="user-num-button"><img src="/static/img/next-button.png"></button>
+		</div>
+		<div id="called-num-wrapper" style="display:none;">
+			<label for="called-num">Phone # To Call:</label>
+			<input type="text" name="called-num" style="width:300px;" />
+			<button type="button" class="next-button" id="called-num-button"><img src="/static/img/next-button.png"></button>
+			<p><a href="#" id="called-num-previous">Previous</a></p>
+		</div>
+		<div id="email-wrapper" style="display:none;">
+			<label for="user-email">Email:</label>
+			<input type="text" name="user_email" />
+			<button class="next-button" id="email-button"><img src="/static/img/call-button.png"></button>
+			<p><a href="#" id="email-previous">Previous</a></p>
+		</div>
 		</form>
 	</div>
 </div>
