@@ -57,7 +57,10 @@ def outgoing_callback(request):
 		return HttpResponse(status=400)
 	
 def outgoing_recording_callback(request):
-	return render_to_response('outgoing_recording_callback.html', {})
+	if is_valid_twilio_request(request):
+		return render_to_response('outgoing_recording_callback.html', {})
+	else:
+		return HttpResponse(status=400)
 	
 
 def is_valid_twilio_request(request):
