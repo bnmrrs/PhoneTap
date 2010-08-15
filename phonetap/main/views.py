@@ -101,13 +101,13 @@ def outgoing_recording_callback(request):
 		msg.to = call.caller_email
 		msg.subject = "PhoneTap - Call Recording"
 		msg.body = """
-		Dear %s,
+Dear %s,
 		
-		Your call recording has been processed and is now avaliable.  You can
-		now vist %s to listen to and download an .MP3 of your call.
-		
-		The PhoneTap Team
-		""" % (call.caller_email, request.build_absolute_uri(
+Your call recording has been processed and is now avaliable.  
+You can now vist %s to listen to and download an .MP3 of your call.
+	
+The PhoneTap Team
+""" % (call.caller_email, request.build_absolute_uri(
 					reverse('phonetap-main-view_call', args=[call.call_sid])
 		))
 
