@@ -1,5 +1,5 @@
 from django.utils import simplejson as json
-from twiliosimple import Twilio
+from twiliosimple import Twilio, Utils
 
 from phonetap.main.forms import CallForm
 
@@ -45,13 +45,30 @@ def make_call(request):
 		return HttpResponse(status=400)
 		
 def outgoing_callback(request):
-	callback = request.build_absolute_uri(
-		reverse('phonetap-main-outgoing_recording')
-	)
+	if is_valid_twilio_request(request):
+		callback = request.build_absolute_uri(
+			reverse('phonetap-main-outgoing_recording')
+			)
 	
-	return render_to_response('outgoing_callback.html', {
-		'callback': callback
-	})
+		return render_to_response('outgoing_callback.html', {
+			'callback': callback
+		})
+	else:
+		return HttpResponse(status=400)
 	
 def outgoing_recording_callback(request):
 	return render_to_response('outgoing_recording_callback.html', {})
+	
+
+def is_valid_twilio_request(request):
+	if not request.method == 'POST':
+		return False
+
+	twilio_utils = Utils(settings.TWILIO_ACCOUNT_SID,
+		settings.TWILIO_ACCOUNT_TOKEN)
+
+	postvars = request.POST
+	signature = request.META['HTTP_X_TWILIO_SIGNATURE']
+	url = request.build_absolute_uri()
+
+	return twilio_utils.validateRequest(url, postvars, signature)
