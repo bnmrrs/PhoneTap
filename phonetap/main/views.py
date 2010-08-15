@@ -108,7 +108,7 @@ def outgoing_recording_callback(request):
 		
 		The PhoneTap Team
 		""" % (call.caller_email, request.build_absolute_uri(
-					reverse('phonetap-main-homepage')
+					reverse('phonetap-main-view_call', args=[call.call_sid])
 		))
 
 		msg.send()
