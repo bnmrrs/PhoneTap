@@ -6,7 +6,7 @@ def tel(value):
 
 def duration(duration):
 	if not duration:
-		return 'No duration'
+		return 'Unknown duration'
 	else:
 		return value
 
