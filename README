@@ -1,0 +1,13 @@
+PhoneTap
+========
+PhoneTap enables you to record your own phone calls and then download them as a convenient .MP3 file. No hardware required, just input your number and the number you'd like to call. When you pick up we'll dial your requested number, record the call and we'll send you an email with a link to the download when you're done.
+
+
+Install Instructions
+====================
+
+1. Create an AppEngine account: http://appengine.google.com/
+2. Download the AppEngine SDK: http://code.google.com/appengine/docs/python/gettingstarted/devenvironment.html
+3. Update SENDER_EMAIL in settings.py to the email you used to sign up for AppEngine
+4. Deploy the AppEngine application: http://code.google.com/appengine/docs/python/gettingstarted/uploading.html
+5. Test the app
