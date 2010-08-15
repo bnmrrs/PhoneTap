@@ -106,7 +106,7 @@ $(document).ready(function(){
 		if (is_valid_email($('#caller_email').val())) {
 			$('#caller_email').qtip("hide");
 			
-			$.blockUI({ message: 'We are processing your request.  You should receive a phone call soon' });
+			$.blockUI({ message: 'We are processing your request.  You should receive a phone call soon.' });
 			
 			$('#call-form').submit();
 		} else {
