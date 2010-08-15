@@ -4,6 +4,10 @@
 
 {% block header_javascript %}
 	$(document).ready(function(){
+		$('input#caller_num').example('(555) 555-5555', { className: 'hint' });
+		$('input#callee_num').example('(555) 555-5555', { className: 'hint' });
+		$('input#caller_email').example('you@example.org', { className: 'hint' });
+		
 		$("#user-num-button").click(function () {
 			$("#user-num-wrapper").hide("slide", { direction: "left" }, 1000,
 			function() {
@@ -53,18 +57,18 @@
 	<form action="{% url phonetap-main-make_call %}" method="post" id="call-form">
 		<div id="user-num-wrapper">
 			<label for="caller_num">Your Phone #:</label>
-			<input type="text" name="caller_num" style="width:335px;"  />
+			<input type="text" id="caller_num" name="caller_num" style="width:335px;"  />
 			<button type="button" class="next-button" id="user-num-button"><img src="/static/img/next-button.png"></button>
 		</div>
 		<div id="called-num-wrapper" style="display:none;">
 			<label for="callee_num">Phone # To Call:</label>
-			<input type="text" name="callee_num" style="width:300px;" />
+			<input type="text" id="callee_num" name="callee_num" style="width:300px;" />
 			<button type="button" class="next-button" id="called-num-button"><img src="/static/img/next-button.png"></button>
 			<p class="previous"><a href="#" id="called-num-previous">Previous</a></p>
 		</div>
 		<div id="email-wrapper" style="display:none;">
 			<label for="caller_email">Email:</label>
-			<input type="text" name="caller_email" />
+			<input type="text" id="caller_email" name="caller_email" />
 			<button type="submit" class="next-button" id="email-button"><img src="/static/img/call-button.png"></button>
 			<p class="previous"><a href="#" id="email-previous">Previous</a></p>
 		</div>

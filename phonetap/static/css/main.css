@@ -116,6 +116,10 @@ body {
 	padding:0px;
 }
 
+.hint {
+	color:#999;
+}
+
 .call_details {
 	margin-top:15px;
 }
