@@ -16,10 +16,6 @@
 			$("#email-wrapper").show("slide", { direction: "right" }, 1000);
 		});
 		
-		$("#email-button").click(function () {
-
-		});
-		
 		$("#called-num-previous").click(function () {
 			$("#called-num-wrapper").hide("slide", { direction: "right" }, 1000);
 			$("#user-num-wrapper").show("slide", { direction: "left" }, 1000);
@@ -38,7 +34,7 @@
 	
 	function processResponse(data) {
 		if (data.success) {
-			console.log("it worked!");
+			window.location = data.call_page_url
 		} else {
 			console.log("It didn't work :(")
 			console.log(data)
@@ -64,13 +60,13 @@
 			<label for="callee_num">Phone # To Call:</label>
 			<input type="text" name="callee_num" style="width:300px;" />
 			<button type="button" class="next-button" id="called-num-button"><img src="/static/img/next-button.png"></button>
-			<p><a href="#" id="called-num-previous">Previous</a></p>
+			<p class="previous"><a href="#" id="called-num-previous">Previous</a></p>
 		</div>
 		<div id="email-wrapper" style="display:none;">
 			<label for="caller_email">Email:</label>
 			<input type="text" name="caller_email" />
-			<button class="next-button" id="email-button"><img src="/static/img/call-button.png"></button>
-			<p><a href="#" id="email-previous">Previous</a></p>
+			<button type="submit" class="next-button" id="email-button"><img src="/static/img/call-button.png"></button>
+			<p class="previous"><a href="#" id="email-previous">Previous</a></p>
 		</div>
 		</form>
 	</div>
