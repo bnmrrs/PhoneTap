@@ -2,6 +2,24 @@
 
 {% block title %}PhoneTap{% endblock %}
 
+{% block header_javascript %}
+	$(document).ready(function(){
+		$('#call-form').ajaxForm({ 
+			dataType: 'json',
+			success: processResponse
+		});
+	});
+	
+	function processResponse(data) {
+		if (data.success) {
+			console.log("it worked!");
+		} else {
+			console.log("It didn't work :(")
+			console.log(data)
+		}
+	}
+{% endblock %}
+
 {% block content %}
 {{ success }}
 <div class="content-wrapper">
@@ -10,10 +28,20 @@
 		<p>PhoneTap enables you to record your own phone calls and then download them as a convenient .MP3 file.  No hardware required, just input your number and the number you'd like to call.  When you pick up we'll dial your requested number, record the call and we'll send you an email with a link to the download when you're done.</p>
 	</div>
 	<div class="content">
-		<form action="{% url phonetap-main-homepage %}" method="post" id="call-form">
-			{{ form.as_p }}
+		<form action="{% url phonetap-main-make_call %}" method="post" id="call-form">
 			<table>
-
+				<tr>
+					<td><label for="user-number">Your Number:</label></td>
+					<td>{{ form.caller_number }}</td>
+				</tr>
+				<tr>	
+					<td><label for="called-number">Number to Call:</label></td>
+					<td>{{ form.callee_number }}</td>
+				</tr>
+				<tr>
+					<td><label for="user-email">Your Email:</label></td>
+					<td>{{ form.caller_email }}</td>
+				</tr>
 				<tr>
 					<td>&nbsp;</td>
 					<td><input type="submit" value="Make Call" /></td>
