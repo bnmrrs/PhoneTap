@@ -8,25 +8,15 @@
 	<script src="/static/js/jquery.form.js" type="text/javascript"></script>
 	<link rel="stylesheet" href='/static/css/main.css' type="text/css" media="screen" />
 	
-	  <style>
-	    .hide
-	    {
-	      display: none;
-	    }
-
-	    .show
-	    {
-	      display: block;
-	    }
-	  </style>
-	
 	<script type="text/javascript">
 		{% block header_javascript %}{% endblock %}
 	</script>
 </head>
 <body>
 	<div class="header">
-		<h1>PhoneTap</h1>
+		<div class="logo">
+			<img src="/static/img/logo.png">
+		</div>
 	</div>
 	{% block content %}
     {{ content }}

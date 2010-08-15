@@ -38,8 +38,6 @@ body {
 }
 
 .logo {
-	font-size:40px;
-	padding-left:20px;
 	padding-top:10px;
 }
 
@@ -52,7 +50,7 @@ body {
 	background-repeat:repeat-x;
 }
 
-.content {
+.index-content {
 	width:800px;
 	height:90px;
 	margin-left:auto;
@@ -63,7 +61,19 @@ body {
 	background-image: url(/static/img/box.png);
 }
 
-.content label {
+.call-content {
+	width:800px;
+	height:175px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	margin-bottom:30px;
+	border:1px solidd #ccc;
+	background-color:#fff;
+	padding-top:10px;
+}
+
+.index-content label {
 	font-size:26px;
 	line-height:30px;
 	color:#fff;
@@ -71,7 +81,7 @@ body {
 	margin-right:20px;
 }
 
-.content input {
+.index-content input {
 	font-size:25px;
 	width:425px;
 	height:25px;
@@ -82,7 +92,7 @@ body {
 	margin-top:17px;
 }
 
-.content button {
+.index-content button {
 	background-color:transparent;
 	border:0px;
 	margin-top:9px;
@@ -90,20 +100,29 @@ body {
 	float:right;
 }
 
-.content .previous a {
+.index-content .previous a {
 	font-size:10px;
 	color:#fff;
 	text-decoration:none;
 }
 
-.content .previous a:visited {
+.index-content .previous a:visited {
 	color:#fff;
 }
 
-.content p {
+.index-content p {
 	margin-left:10px;
 	margin-top:7px;
 	padding:0px;
+}
+
+.call_details {
+	margin-top:15px;
+}
+
+.call_details td {
+	margin-left:100px;
+	padding-left:30px;
 }
 
 .footer {
