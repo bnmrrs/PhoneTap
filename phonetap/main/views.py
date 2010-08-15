@@ -1,10 +1,13 @@
 from twiliosimple import Twilio, Utils
 from datetime import datetime
+import logging
 
 from phonetap.main.forms import CallForm
 from phonetap.main.models import Call
+from phonetap.main.mail import CallMessage
 
 from google.appengine.ext import db
+from google.appengine.api import mail
 
 from django.http import HttpResponse
 from django.core import serializers
@@ -85,6 +88,27 @@ def outgoing_recording_callback(request):
 		call.end_time = datetime.now()
 		call.recording_url = request.POST['RecordingUrl']
 		call.put()
+		
+		msg = mail.EmailMessage()
+		msg.sender = settings.SENDER_EMAIL
+		msg.to = call.caller_email
+		msg.subject = "PhoneTap - Call Recording"
+		msg.body = """
+		Dear %s,
+		
+		Your call recording has been processed and is now avaliable.  You can
+		now vist %s to listen to and download an .MP3 of your call.
+		
+		The PhoneTap Team
+		""" % (call.caller_email, request.build_absolute_uri(
+					reverse('phonetap-main-homepage')
+		))
+
+		msg.send()
+	#	msg = CallMessage()
+#		msg.initialize(call.caller_email, request.build_absolute_uri(
+#			reverse('phonetap-main-homepage')
+#		))
 		
 		return render_to_response('outgoing_recording_callback.html', {})
 	else:

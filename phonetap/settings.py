@@ -85,3 +85,6 @@ TWILIO_ACCOUNT_SID = 'ACd9929ee3bf8bf4b761ef0ecd4927052c'
 TWILIO_ACCOUNT_TOKEN = 'ea14e0690420d279d63fb3497439ca98'
 TWILIO_SANDBOX_NUM = '5197229408'
 TWILIO_API_VERSION = '2008-08-01'
+
+# Account to send email from.  This must be one of your app engine admin accounts
+SENDER_EMAIL = 'ben.morris99@gmail.com'
