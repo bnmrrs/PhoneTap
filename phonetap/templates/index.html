@@ -56,19 +56,19 @@
 	<div class="content">
 	<form action="{% url phonetap-main-make_call %}" method="post" id="call-form">
 		<div id="user-num-wrapper">
-			<label for="user-num">Your Phone #:</label>
-			<input type="text" name="caller" style="width:335px;"  />
+			<label for="caller_num">Your Phone #:</label>
+			<input type="text" name="caller_num" style="width:335px;"  />
 			<button type="button" class="next-button" id="user-num-button"><img src="/static/img/next-button.png"></button>
 		</div>
 		<div id="called-num-wrapper" style="display:none;">
-			<label for="called-num">Phone # To Call:</label>
-			<input type="text" name="called-num" style="width:300px;" />
+			<label for="callee_num">Phone # To Call:</label>
+			<input type="text" name="callee_num" style="width:300px;" />
 			<button type="button" class="next-button" id="called-num-button"><img src="/static/img/next-button.png"></button>
 			<p><a href="#" id="called-num-previous">Previous</a></p>
 		</div>
 		<div id="email-wrapper" style="display:none;">
-			<label for="user-email">Email:</label>
-			<input type="text" name="user_email" />
+			<label for="caller_email">Email:</label>
+			<input type="text" name="caller_email" />
 			<button class="next-button" id="email-button"><img src="/static/img/call-button.png"></button>
 			<p><a href="#" id="email-previous">Previous</a></p>
 		</div>
