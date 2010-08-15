@@ -1,5 +1,5 @@
-from django.utils import simplejson as json
 from twiliosimple import Twilio, Utils
+from datetime import datetime
 
 from phonetap.main.forms import CallForm
 from phonetap.main.models import Call
@@ -11,6 +11,7 @@ from django.core import serializers
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils import simplejson as json
 
 def homepage(request):
 	form = CallForm()
@@ -59,13 +60,7 @@ def make_call(request):
 		
 def outgoing_callback(request):
 	if is_valid_twilio_request(request):
-		q = db.GqlQuery('SELECT * FROM Call ' +
-						'WHERE call_sid = :1 ',
-						request.POST['CallSid'])
-		call = q.get()
-		
-		if not call:
-			raise Http404
+		call = get_call(request.POST)
 			
 		call.current_status = 'In Progress'
 		call.put()
@@ -84,9 +79,27 @@ def outgoing_callback(request):
 	
 def outgoing_recording_callback(request):
 	if is_valid_twilio_request(request):
+		call = get_call(request.POST)
+		
+		call.current_status = 'Completed'
+		call.end_time = datetime.now()
+		call.recording_url = request.POST['RecordingUrl']
+		call.put()
+		
 		return render_to_response('outgoing_recording_callback.html', {})
 	else:
 		return HttpResponse(status=400)
+		
+		
+def get_call(request):
+	q = db.GqlQuery('SELECT * FROM Call ' +
+					'WHERE call_sid = :1 ',
+					request['CallSid'])
+	call = q.get()
+	
+	if not call:
+		raise Http404
+	return call
 	
 
 def is_valid_twilio_request(request):
