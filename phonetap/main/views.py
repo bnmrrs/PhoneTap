@@ -23,6 +23,13 @@ def homepage(request):
 		'form': form,
 	})
 	
+def view_call(request, call_sid):
+	call = get_call({ 'CallSid': call_sid })
+	
+	return render_to_response('call.html', {
+		'call': call
+	})
+	
 def make_call(request):
 	if request.is_ajax():
 		form = CallForm(request.POST)
