@@ -90,10 +90,14 @@ body {
 	float:right;
 }
 
-.content a {
+.content .previous a {
 	font-size:10px;
 	color:#fff;
 	text-decoration:none;
+}
+
+.content .previous a:visited {
+	color:#fff;
 }
 
 .content p {
@@ -102,11 +106,23 @@ body {
 	padding:0px;
 }
 
-.content a:visited {
-	color:#fff;
-}
-
 .footer {
 	height:120px;
 	width:100%;
+}
+
+.footer p {
+	text-align:center;
+}
+
+.footer a {
+	color:#666;
+}
+
+.footer a:visited {
+	color:#666;
+}
+
+.footer a:hover {
+	color:#333;
 }
