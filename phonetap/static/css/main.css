@@ -41,6 +41,10 @@ body {
 	padding-top:10px;
 }
 
+.logo img {
+	border-style:none;
+}
+
 .content-wrapper {
 	border-top:1px solid #999;
 	border-bottom:1px solid #999;
