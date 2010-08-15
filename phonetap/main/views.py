@@ -100,8 +100,7 @@ def outgoing_recording_callback(request):
 		msg.sender = settings.SENDER_EMAIL
 		msg.to = call.caller_email
 		msg.subject = "PhoneTap - Call Recording"
-		msg.body = """
-Dear %s,
+		msg.body = """Dear %s,
 		
 Your call recording has been processed and is now avaliable.  
 You can now vist %s to listen to and download an .MP3 of your call.
