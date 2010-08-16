@@ -5,11 +5,4 @@ PhoneTap enables you to record your own phone calls and then download them as a 
 
 Install Instructions
 ====================
-
-1. Create an AppEngine account: http://appengine.google.com/
-2. Create a new AppEngine application
-3. Download the AppEngine SDK: http://code.google.com/appengine/docs/python/gettingstarted/devenvironment.html
-4. Update SENDER_EMAIL in PhoneTap/phonetap/settings.py to the email you used to sign up for AppEngine
-5. Update the application variable in PhoneTap/app.yaml to whatever you named your application
-6. Deploy the AppEngine application: http://code.google.com/appengine/docs/python/gettingstarted/uploading.html
-7. Test the app
+Follow INSTALL in the root directory
