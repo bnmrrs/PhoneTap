@@ -1,6 +1,6 @@
 {% extends "twilio_base.html" %}
 {% block content %}
-<Say>Thank you for using phone tap. There is currently a 2 minute time limit for all calls, at that point your call will be automatically terminated.  We will now connect you with the requested number.</Say>
+<Say>Thank you for using phone tap. There is currently a 2 minute time limit for all calls, at that point your call will be automatically terminated.  We will now connect you with the requested party.</Say>
 <Dial timeLimit="120" record="true" action="{{ callback }}">{{ number }}</Dial>
 <Say>We were unable to reach the requested party.  Please try again later</Say>
 <Hangup/>
