@@ -71,8 +71,10 @@ $(document).ready(function(){
 		if (is_valid_phone($('#caller_num').val())) {
 			$('#caller_num').qtip("hide");
 							
-			$("#user-num-wrapper").hide("slide", { direction: "left" }, 1000);
-			$("#called-num-wrapper").show("slide", { direction: "right" }, 1000);
+			$("#user-num-wrapper").hide("slide", { direction: "left" }, 1000, function() {
+				$("#called-num-wrapper").show("slide", { direction: "right" }, 1000);
+			});
+			
 		} else {
 			$('#caller_num').qtip("show");
 		}
@@ -81,8 +83,10 @@ $(document).ready(function(){
 	$("#called-num-button").click(function () {
 		if (is_valid_phone($('#caller_num').val())) {
 			$('#called_num').qtip("hide");
-			$("#called-num-wrapper").hide("slide", { direction: "left" }, 1000);
-			$("#email-wrapper").show("slide", { direction: "right" }, 1000);
+			
+			$("#called-num-wrapper").hide("slide", { direction: "left" }, 1000, function() {
+				$("#email-wrapper").show("slide", { direction: "right" }, 1000);
+			});	
 		} else{
 			$('#called_num').qtip("show");
 		}
@@ -91,15 +95,17 @@ $(document).ready(function(){
 	$("#called-num-previous").click(function () {
 		$('#called_num').qtip("hide");
 		
-		$("#called-num-wrapper").hide("slide", { direction: "right" }, 1000);
-		$("#user-num-wrapper").show("slide", { direction: "left" }, 1000);
+		$("#called-num-wrapper").hide("slide", { direction: "right" }, 1000, function() {
+			$("#user-num-wrapper").show("slide", { direction: "left" }, 1000);
+		});
 	});
 	
 	$("#email-previous").click(function () {
 		$('#caller_email').qtip("hide");
 		
-		$("#email-wrapper").hide("slide", { direction: "right" }, 1000);
-		$("#called-num-wrapper").show("slide", { direction: "left" }, 1000);
+		$("#email-wrapper").hide("slide", { direction: "right" }, 1000, function() {
+			$("#called-num-wrapper").show("slide", { direction: "left" }, 1000);
+		});
 	});
 	
 	$("#email-button").click(function () {
