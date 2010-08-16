@@ -9,7 +9,7 @@ from phonetap.main.mail import CallMessage
 from google.appengine.ext import db
 from google.appengine.api import mail
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.core import serializers
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
