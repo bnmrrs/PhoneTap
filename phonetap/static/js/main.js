@@ -76,6 +76,7 @@ $(document).ready(function(){
 			});
 			
 		} else {
+			$('#caller_num').focus();
 			$('#caller_num').qtip("show");
 		}
 	});
@@ -88,6 +89,7 @@ $(document).ready(function(){
 				$("#email-wrapper").show("slide", { direction: "right" }, 1000);
 			});	
 		} else{
+			$('#called_num').focus();
 			$('#called_num').qtip("show");
 		}
 	});
@@ -116,6 +118,7 @@ $(document).ready(function(){
 			
 			$('#call-form').submit();
 		} else {
+			$('#caller_email').focus();
 			$('#caller_email').qtip("show");
 		}
 	});
