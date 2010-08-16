@@ -95,7 +95,6 @@ def outgoing_callback(request):
 	
 def outgoing_recording_callback(request):
 	if is_valid_twilio_request(request):
-		logging.debug('recording')
 		call = get_call(request.POST)
 		
 		call.current_status = 'Completed'
@@ -120,15 +119,20 @@ The PhoneTap Team
 		))
 
 		msg.send()
-	#	msg = CallMessage()
-#		msg.initialize(call.caller_email, request.build_absolute_uri(
-#			reverse('phonetap-main-homepage')
-#		))
 		
 		return render_to_response('outgoing_recording_callback.html', {})
 	else:
 		return HttpResponse(status=400)
 		
+
+def check_call_status(request, call_sid):
+	call = get_call({ 'CallSid': call_sid })
+	
+	response = json.dumps({
+		'call_status': call.current_status,
+	})
+	return HttpResponse(response, 'application/javascript')
+	
 		
 def get_call(request):
 	q = db.GqlQuery('SELECT * FROM Call ' +

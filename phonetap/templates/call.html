@@ -3,6 +3,16 @@
 
 {% block title %}PhoneTap - View Call{% endblock %}
 
+{% block additional_headers %}
+<script type="text/javascript">
+	var call_status = '{{ call.current_status }}';
+	var call_id = '{{ call.call_sid }}';
+</script>
+<script src="/static/js/jquery.periodicalupdater.js" type="text/javascript"></script>
+<script src="/static/js/call.js" type="text/javascript"></script>
+
+{% endblock %}
+
 {% block content %}
 {{ success }}
 <div class="content-wrapper">
