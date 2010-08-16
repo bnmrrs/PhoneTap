@@ -1,0 +1,34 @@
+PhoneTap Install Guide
+======================
+This guide assumes that you have the OSX SDK installed although can you follow Google's instructions online at http://code.google.com/appengine/docs/python/gettingstarted/devenvironment.html for windows or linux.  If you run into any problems I'm available most days on Skype at bmorris98 or gtalk at ben.morris99@gmail.com
+
+
+Step One: Creating the application
+==================================
+* If you do not already have an AppEngine account you must create one now at https://appengine.google.com
+* Log into your account and click "Create an application"
+* The application identifier can be whatever you'd like but make sure you remember it, we'll use it later
+* The application title can be whatever you'd like
+* Leave the Auth and Google Accounts as the default
+* Click "Create Application" and then go to the dashboard
+
+
+Step Two: Preparing the application
+===================================
+* Clone the PhoneTap git repository at git://github.com/bnmrrs/PhoneTap.git
+* Edit PhoneTap/app.yaml and change the application variable to the "application identifier" you used in step one
+* Edit PhoneTap/phonetap/settings.py and change the SENDER_EMAIL variable to the google account email that you used to create your AppEngine application
+
+
+Step Three: Adding the application to the AppEngine SDK and deploying
+=====================================================================
+* Open up the AppEngine SDK and go to file > add existing application
+* Browse to the path where you cloned the PhoneTap Repo and then click "Add"
+* Click "Deploy" and enter your AppEngine credentials
+* A log dialog should pop up and show the deployment progress
+* After a few seconds it should say "Closing update: new version is ready to start serving." and then "*** appcfg.py has finished with exit code 0 ***"
+
+
+Step Four: Making sure everything worked
+========================================
+* You can now go to http://<Your App Identifier>.appspot.com and test out the application
