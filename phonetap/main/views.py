@@ -73,6 +73,9 @@ def make_call(request):
 		
 def outgoing_callback(request):
 	if is_valid_twilio_request(request):
+		if request.POST['CallStatus'] == 'completed':
+			return HttpResponse(status=200)
+			
 		call = get_call(request.POST)
 			
 		call.current_status = 'In Progress'
@@ -92,12 +95,15 @@ def outgoing_callback(request):
 	
 def outgoing_recording_callback(request):
 	if is_valid_twilio_request(request):
+		logging.debug('recording')
 		call = get_call(request.POST)
 		
 		call.current_status = 'Completed'
 		call.end_time = datetime.now()
 		call.recording_url = request.POST['RecordingUrl']
+		call.duration = request.POST['DialCallDuration']
 		call.put()
+
 		
 		msg = mail.EmailMessage()
 		msg.sender = settings.SENDER_EMAIL
