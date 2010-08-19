@@ -1,7 +1,9 @@
-from twiliosimple import Twilio, Utils
 from datetime import datetime
 import simplejson as json
 import logging
+
+from twiliosimple import Twilio, Utils
+from django_twilio_utils.decorators import twilio_request
 
 from phonetap.main.forms import CallForm
 from phonetap.main.documents import Call
@@ -35,8 +37,8 @@ def make_call(request):
 				reverse('phonetap-main-outgoing_inprogress')
 			)
 			
-			twilio = Twilio(settings.TWILIO_ACCOUNT_SID, \
-				settings.TWILIO_ACCOUNT_TOKEN)
+			twilio = Twilio(settings.TWILIO_API_SID, \
+				settings.TWILIO_API_TOKEN)
 				
 			twilio_response = twilio.call(settings.TWILIO_SANDBOX_NUM, \
 				form.cleaned_data['caller_num'], callback).get_response()
@@ -67,58 +69,52 @@ def make_call(request):
 	else:
 		return HttpResponse(status=400)
 		
+@twilio_request
 def outgoing_callback(request):
-	if is_valid_twilio_request(request):
-		if request.POST['CallStatus'] == 'completed':
-			return HttpResponse(status=200)
+	if request.POST['CallStatus'] == 'completed':
+		return HttpResponse(status=200)
 			
-		call = get_call(request.POST['CallSid'])
+	call = get_call(request.POST['CallSid'])
 			
-		call.current_status = 'In Progress'
-		call.save()
+	call.current_status = 'In Progress'
+	call.save()
 							
-		callback = request.build_absolute_uri(
-			reverse('phonetap-main-outgoing_recording')
-		)
+	callback = request.build_absolute_uri(
+		reverse('phonetap-main-outgoing_recording')
+	)
 	
-		return render_to_response('outgoing_callback.html', {
-			'callback': callback,
-			'number': call.callee_number
-		})
-		
-	else:
-		return HttpResponse(status=400)
-	
-def outgoing_recording_callback(request):
-	if is_valid_twilio_request(request):
-		call = get_call(request.POST['CallSid'])
-		
-		call.current_status = 'Completed'
-		call.end_time = datetime.now()
-		call.recording_url = request.POST['RecordingUrl']
-		call.duration = request.POST['DialCallDuration']
-		call.save()
+	return render_to_response('outgoing_callback.html', {
+		'callback': callback,
+		'number': call.callee_number
+	})
 
+@twilio_request	
+def outgoing_recording_callback(request):
+	call = get_call(request.POST['CallSid'])
 		
-		msg = mail.EmailMessage()
-		msg.sender = settings.SENDER_EMAIL
-		msg.to = call.caller_email
-		msg.subject = "PhoneTap - Call Recording"
-		msg.body = """Dear %s,
+	call.current_status = 'Completed'
+	call.end_time = datetime.now()
+	call.recording_url = request.POST['RecordingUrl']
+	call.duration = request.POST['DialCallDuration']
+	call.save()
+		
+	msg = mail.EmailMessage()
+	msg.sender = settings.SENDER_EMAIL
+	msg.to = call.caller_email
+	msg.subject = "PhoneTap - Call Recording"
+	msg.body = """Dear %s,
 		
 Your call recording has been processed and is now avaliable.  
 You can now vist %s to listen to and download an .MP3 of your call.
 	
 The PhoneTap Team
 """ % (call.caller_email, request.build_absolute_uri(
-					reverse('phonetap-main-view_call', args=[call.call_sid])
-		))
+				reverse('phonetap-main-view_call', args=[call.call_sid])
+	))
 
-		msg.send()
+	msg.send()
 		
-		return render_to_response('outgoing_recording_callback.html', {})
-	else:
-		return HttpResponse(status=400)
+	return render_to_response('outgoing_recording_callback.html', {})
 		
 
 def check_call_status(request, call_sid):
@@ -137,17 +133,3 @@ def get_call(sid):
 	except IndexError:
 		raise Http404
 	return call
-	
-
-def is_valid_twilio_request(request):
-	if not request.method == 'POST':
-		return False
-
-	twilio_utils = Utils(settings.TWILIO_ACCOUNT_SID,
-		settings.TWILIO_ACCOUNT_TOKEN)
-
-	postvars = request.POST
-	signature = request.META['HTTP_X_TWILIO_SIGNATURE']
-	url = request.build_absolute_uri()
-
-	return twilio_utils.validateRequest(url, postvars, signature)
