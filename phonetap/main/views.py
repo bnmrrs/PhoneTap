@@ -1,20 +1,16 @@
 from twiliosimple import Twilio, Utils
 from datetime import datetime
+import simplejson as json
 import logging
 
 from phonetap.main.forms import CallForm
 from phonetap.main.models import Call
-from phonetap.main.mail import CallMessage
-
-from google.appengine.ext import db
-from google.appengine.api import mail
 
 from django.http import HttpResponse, Http404
 from django.core import serializers
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils import simplejson as json
 
 def homepage(request):
 	form = CallForm()
@@ -43,17 +39,17 @@ def make_call(request):
 				settings.TWILIO_ACCOUNT_TOKEN)
 				
 			twilio_response = twilio.call(settings.TWILIO_SANDBOX_NUM, \
-				form.cleaned_data['caller_num'], callback)
+				form.cleaned_data['caller_num'], callback).get_response()
 				
 			call = Call(
-				call_sid=twilio_response.call_sid,
+				call_sid=twilio_response['call_sid'],
 				caller_number=form.cleaned_data['caller_num'],
 				callee_number=form.cleaned_data['callee_num'],
 				caller_email=form.cleaned_data['caller_email'],
 				current_status='Dialing'
 			)
 			
-			call.put()
+			call.save()
 			
 			response = json.dumps({
 				'success': True,
