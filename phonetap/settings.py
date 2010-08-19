@@ -1,6 +1,10 @@
 # Django settings for phonetap project.
 import os
 
+from mongoengine import connect
+
+connect('phonetap')
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
