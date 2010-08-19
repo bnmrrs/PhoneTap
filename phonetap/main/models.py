@@ -1,12 +1,13 @@
-from google.appengine.ext import db
+from mongoengine import *
+from datetime import datetime
 
-class Call(db.Model):
-	caller_number = db.StringProperty(required=True)
-	callee_number = db.StringProperty(required=True)
-	caller_email = db.EmailProperty(required=True)
-	call_sid = db.StringProperty()
-	recording_url = db.StringProperty()
-	current_status = db.StringProperty()
-	start_time = db.DateTimeProperty(auto_now_add=True)
-	end_time = db.DateTimeProperty()
-	recording_duration = db.IntegerProperty()
+class Call(Document):
+	call_sid = StringField(required=True)
+	caller_number = StringField(required=True)
+	callee_number = StringField(required=True)
+	caller_email = StringField(required=True)
+	recording_url = URLField()
+	current_status = StringField(required=True)
+	start_time = DateTimeField(required=True, default=datetime.now)
+	end_time = DateTimeField()
+	recording_duration = IntField()
