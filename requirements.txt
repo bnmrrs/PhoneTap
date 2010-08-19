@@ -1,0 +1,7 @@
+Django>=1.1
+simplejson
+pymongo
+mongoengine
+-e git+http://github.com/bnmrrs/TwilioSimple.git#egg=TwilioSimple
+-e git+http://github.com/twilio/twilio-python.git#egg=twilio-python
+-e git+http://github.com/bnmrrs/django-twilio-utils.git#egg=django-twilio-utils
