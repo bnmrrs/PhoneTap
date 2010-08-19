@@ -4,7 +4,7 @@ import simplejson as json
 import logging
 
 from phonetap.main.forms import CallForm
-from phonetap.main.models import Call
+from phonetap.main.documents import Call
 
 from django.http import HttpResponse, Http404
 from django.core import serializers
@@ -20,7 +20,7 @@ def homepage(request):
 	})
 	
 def view_call(request, call_sid):
-	call = get_call({ 'CallSid': call_sid })
+	call = get_call(call_sid)
 	
 	return render_to_response('call.html', {
 		'call': call
@@ -72,10 +72,10 @@ def outgoing_callback(request):
 		if request.POST['CallStatus'] == 'completed':
 			return HttpResponse(status=200)
 			
-		call = get_call(request.POST)
+		call = get_call(request.POST['CallSid'])
 			
 		call.current_status = 'In Progress'
-		call.put()
+		call.save()
 							
 		callback = request.build_absolute_uri(
 			reverse('phonetap-main-outgoing_recording')
@@ -91,13 +91,13 @@ def outgoing_callback(request):
 	
 def outgoing_recording_callback(request):
 	if is_valid_twilio_request(request):
-		call = get_call(request.POST)
+		call = get_call(request.POST['CallSid'])
 		
 		call.current_status = 'Completed'
 		call.end_time = datetime.now()
 		call.recording_url = request.POST['RecordingUrl']
 		call.duration = request.POST['DialCallDuration']
-		call.put()
+		call.save()
 
 		
 		msg = mail.EmailMessage()
@@ -122,7 +122,7 @@ The PhoneTap Team
 		
 
 def check_call_status(request, call_sid):
-	call = get_call({ 'CallSid': call_sid })
+	call = get_call(call_sid)
 	
 	response = json.dumps({
 		'call_status': call.current_status,
@@ -130,13 +130,11 @@ def check_call_status(request, call_sid):
 	return HttpResponse(response, 'application/javascript')
 	
 		
-def get_call(request):
-	q = db.GqlQuery('SELECT * FROM Call ' +
-					'WHERE call_sid = :1 ',
-					request['CallSid'])
-	call = q.get()
-	
-	if not call:
+def get_call(sid):
+	print sid
+	try:
+		call = Call.objects(call_sid=sid)[0]
+	except IndexError:
 		raise Http404
 	return call
 	
