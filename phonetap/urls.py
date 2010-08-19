@@ -7,5 +7,6 @@ urlpatterns = patterns('',
 	url(r'^outgoing_recording_callback$', 'phonetap.main.views.outgoing_recording_callback', name="phonetap-main-outgoing_recording"),
 	url(r'^check_call_status/(?P<call_sid>\w{34})$', 'phonetap.main.views.check_call_status', name="phonetap-main-check_call_status"),
     url(r'^$', 'phonetap.main.views.homepage', name="phonetap-main-homepage"),
-	#(r'^$', include('phonetap.main.urls')),
+	(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+      {'document_root': '/Users/bmorris/workspace/phonetap3/phonetap/static/'})
 )
