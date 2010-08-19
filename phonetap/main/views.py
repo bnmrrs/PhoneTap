@@ -9,7 +9,7 @@ from phonetap.main.forms import CallForm
 from phonetap.main.documents import Call
 
 from django.http import HttpResponse, Http404
-from django.core import serializers
+from django.core import serializers, mail
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.conf import settings
