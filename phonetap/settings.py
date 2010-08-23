@@ -91,4 +91,4 @@ TWILIO_SANDBOX_NUM = '5197229408'
 TWILIO_API_VERSION = '2008-08-01'
 
 # Account to send email from.  This must be one of your app engine admin accounts
-SENDER_EMAIL = 'ben.morris99@gmail.com'
+SENDER_EMAIL = 'mailer@phonetapapp.com'
