@@ -97,22 +97,19 @@ def outgoing_recording_callback(request):
 	call.recording_url = request.POST['RecordingUrl']
 	call.duration = request.POST['DialCallDuration']
 	call.save()
-		
-	msg = mail.EmailMessage()
-	msg.sender = settings.SENDER_EMAIL
-	msg.to = call.caller_email
-	msg.subject = "PhoneTap - Call Recording"
-	msg.body = """Dear %s,
-		
-Your call recording has been processed and is now avaliable.  
-You can now vist %s to listen to and download an .MP3 of your call.
 	
-The PhoneTap Team
-""" % (call.caller_email, request.build_absolute_uri(
-				reverse('phonetap-main-view_call', args=[call.call_sid])
-	))
+	body = """Dear %s,
 
-	msg.send()
+	Your call recording has been processed and is now avaliable.  
+	You can now vist %s to listen to and download an .MP3 of your call.
+
+	The PhoneTap Team
+	""" % (call.caller_email, request.build_absolute_uri(
+					reverse('phonetap-main-view_call', args=[call.call_sid])
+		))
+		
+	mail.send_mail('PhoneTap - Call Recording', body, settings.SENDER_EMAIL \
+		[call.caller_email])
 		
 	return render_to_response('outgoing_recording_callback.html', {})
 		
