@@ -127,7 +127,6 @@ def check_call_status(request, call_sid):
 	
 		
 def get_call(sid):
-	print sid
 	try:
 		call = Call.objects(call_sid=sid)[0]
 	except IndexError:
