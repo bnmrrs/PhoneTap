@@ -21,6 +21,9 @@ def homepage(request):
 		'form': form,
 	})
 	
+def guidelines(request):
+	return render_to_response('guidelines.html', {})
+	
 def view_call(request, call_sid):
 	call = get_call(call_sid)
 	

@@ -20,6 +20,24 @@ body {
 	margin:0px;
 }
 
+.nav ul {
+	margin-top:25px;
+	float:right;
+}
+
+.nav ul li {
+	display:inline;
+	padding:5px;
+}
+
+.nav ul li a {
+	color:#666;
+}
+
+.nav ul li a:hover {
+	color:#333;
+}
+
 .subheader {
 	width:800px;
 	margin-left:auto;
@@ -142,14 +160,14 @@ body {
 	text-align:center;
 }
 
-.footer a {
+a {
 	color:#666;
 }
 
-.footer a:visited {
+a:visited {
 	color:#666;
 }
 
-.footer a:hover {
+a:hover {
 	color:#333;
 }

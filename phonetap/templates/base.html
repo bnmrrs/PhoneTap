@@ -16,6 +16,11 @@
 </head>
 <body>
 	<div class="header">
+		<div class="nav">
+		<ul>
+			<li><a href="{% url phonetap-main-guidelines %}">Guidelines</a></li>
+		</ul>
+		</div>
 		<div class="logo">
 			<a href="{% url phonetap-main-homepage %}"><img src="/static/img/logo.png"></a>
 		</div>
@@ -26,5 +31,18 @@
 	<div class="footer">
 		<p>Made by <a href="http://bnmrrs.com">Ben Morris</a> as part of <a href="http://djangodash.com">DjangoDash 2010</a></p>
 	</div>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-18009745-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
 </body>
 </html>
