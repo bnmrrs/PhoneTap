@@ -1,0 +1,21 @@
+# Compiled files #
+##################
+*.pyc
+
+# Logs and Databases #
+######################
+*.db
+*.sql
+*.log
+*.sqlite
+
+# Tags #
+########
+tags
+
+# OS generated files #
+######################
+.DS_store?
+ehtumbs.db
+Icon?
+Thumbs.db
