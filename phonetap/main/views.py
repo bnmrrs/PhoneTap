@@ -105,6 +105,8 @@ def outgoing_recording_callback(request):
 
 	Your call recording has been processed and is now avaliable.  
 	You can now vist %s to listen to and download an .MP3 of your call.
+	
+	Please take a moment and fill out a brief survey about PhoneTap to get early access into the new version.  <a href="https://spreadsheets.google.com/viewform?formkey=dEtqb3dHZ1N4bGF2eFhDMTBxa1E1emc6MQ">Click Here!</a> to fill out the survey.
 
 	The PhoneTap Team
 	""" % (call.caller_email, request.build_absolute_uri(
